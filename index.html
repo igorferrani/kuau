@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="container">
+                <a href="./">
+                    <img src="assets/imgs/github-logo.png" alt="" class="logo">
+                    <span>SearchHub</span>
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="tab" v-if="tab == 'list-users'" id="list-users">
+                    <h1>SearchHub</h1>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" style="position:relative">
+                                <label for="" class="control-label">Buscar</label>
+                                <input type="text" v-model="search" placeholder="Digite o nome de usuário no GitHub" @keyup="searchUser()" class="form-control">
+                                <span v-if="isSearching" class="loader glyphicon glyphicon-refresh"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <component-user-list-item v-if="users && users.length > 0" v-for="user in users" :key="user.id" :user="user" class="media"
+                                @click.native="showUserDetail(user.login)"></component-user-list-item>
+
+                            <div v-if="users && users.length == 0 && !isSearching" class="jumbotron not-found">
+                                <svg height="32" class="octicon octicon-search blankslate-icon" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path>
+                                </svg>
+                                <h3>Não foi possível encontrar usuários que correspondam a '{{ search }}'</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab" v-if="tab == 'user-detail'" id="user-detail">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-voltar" @click="tab = 'list-users'">
+                                <span class="glyphicon glyphicon-chevron-left"></span> Voltar
+                            </div>
+
+                            <div class="profile">
+                                <div class="avatar" v-bind:style="{ backgroundImage: 'url(' + user.avatar_url + ')' }">
+                                    <span class="layer"></span>
+                                    <div class="detail-header">
+                                        <span v-if="user.name" class="name">{{ user.name }}</span>
+                                        <span v-if="user.login" class="login">{{ user.login }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="detail-body">
+                                    <div v-if="user.location" class="block-location">
+                                        <svg class="octicon octicon-location" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M6 0C2.69 0 0 2.5 0 5.5 0 10.02 6 16 6 16s6-5.98 6-10.5C12 2.5 9.31 0 6 0zm0 14.55C4.14 12.52 1 8.44 1 5.5 1 3.02 3.25 1 6 1c1.34 0 2.61.48 3.56 1.36.92.86 1.44 1.97 1.44 3.14 0 2.94-3.14 7.02-5 9.05zM8 5.5c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path>
+                                        </svg>
+                                        <span class="location">{{ user.location }}</span>
+                                    </div>
+                                    <div class="block-email">
+                                        <svg class="octicon octicon-mail" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M0 4v8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1zm13 0L7 9 1 4h12zM1 5.5l4 3-4 3v-6zM2 12l3.5-3L7 10.5 8.5 9l3.5 3H2zm11-.5l-4-3 4-3v6z"></path>
+                                        </svg>
+                                        <span v-if="user.email" class="email">{{ user.email }}</span>
+                                        <span v-else class="email sign-in">Sign in to view email</span>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="block-followers">
+                                        Followers
+                                        <span class="badge">{{ user.followers }}</span>
+                                    </div>
+                                    <div class="block-following">
+                                        Following
+                                        <span class="badge">{{ user.following }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+
+    <!-- components-->
+    <script src="components/ComponentUserListItem.js"></script>
+
+    <script src="assets/js/Util.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>

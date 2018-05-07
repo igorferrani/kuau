@@ -1,0 +1,88 @@
+header {
+    box-shadow:0 3px 5px rgba(0, 0, 0, .3);
+}
+
+header .logo {
+    width:auto;
+    height:32px;
+    margin-top:8px;
+    margin-bottom:8px;
+}
+
+main {
+    margin-top:30px;
+}
+
+#list-users .media {
+    padding:5px;
+    border-radius: 5px;
+    border:1px solid transparent;
+    cursor:pointer;
+}
+
+#list-users .media:hover {
+    border:1px solid #ddd;
+}
+
+#list-users .media .media-object {
+    width:64px;
+    height:64px;
+}
+
+#list-users .not-found {
+    text-align:center
+}
+
+
+
+#user-detail .btn-voltar {
+    margin-bottom:15px;
+    cursor:pointer;
+}
+
+#user-detail .profile .avatar {
+    height:200px;
+    width:100%;
+    position: relative;
+    border-radius: 6px;
+
+    background-position: center;
+    background-size: cover;
+}
+
+#user-detail .profile .avatar .layer {
+    border-radius:inherit;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, .5)
+}
+
+#user-detail .profile .avatar .detail-header {
+    position: absolute;
+    bottom: 0;
+    left:0;
+}
+
+#user-detail .profile .avatar .detail-header {
+    margin:15px;
+}
+
+#user-detail .profile .avatar .detail-header .name {
+    font-size:26px;
+    font-weight:bold;
+    color:#ffffff;
+    display: block;
+}
+
+#user-detail .profile .avatar .detail-header .login {
+    color:#ffffff;
+    font-size:20px;
+    display: block;
+}
+
+#user-detail .profile .detail-body {
+    margin-top:15px;
+}
