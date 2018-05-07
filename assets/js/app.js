@@ -19,26 +19,25 @@ new Vue({
         searchUser() {
             var _self = this;
 
-            console.log("search: " + _self.search);
-
             if (_self.search != '') {
-
                 _self.isSearching = true;
-
                 clearTimeout(_self.cacheTimeout);
+
                 _self.cacheTimeout = setTimeout(function () {
 
                     if (_self.search != _self.lastSearch) {
-
                         _self.lastSearch = _self.search;
-
                         var request = util.getRequest("https://api.github.com/search/users", { q: _self.search + "+type:user" });
+
                         request.then(function (retorno) {
+                            _self.users = [];
+
                             if (retorno.success) {
-                                console.log(retorno.data)
                                 _self.users = JSON.parse(retorno.data).items
                                 _self.isSearching = false;
                             }
+                        }, function (error) {
+                            util.errorLog(error);
                         });
                     } else {
                         _self.isSearching = false;
@@ -50,17 +49,20 @@ new Vue({
         },
         showUserDetail(login) {
             var _self = this;
+
             if (login != _self.lastClickSearch) {
                 _self.lastClickSearch = login;
                 var request = util.getRequest("https://api.github.com/users/" + login);
+
                 request.then(function (retorno) {
                     if (retorno.success) {
                         console.log(retorno.data)
                         _self.user = JSON.parse(retorno.data);
                     }
+                }, function (error) {
+                    util.errorLog(error);
                 });
             }
-
             this.tab = 'user-detail';
         }
     }

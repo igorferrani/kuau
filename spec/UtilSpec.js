@@ -89,7 +89,7 @@ describe("Util", function () {
     });
 
     describe("Chamada para método getRequest", function () {
-        it("Requisição GET sem passagem de queryString com retorno OK - 200", function (done) {
+        it("Requisição GET sem passagem de queryString queryString, com retorno OK - 200", function (done) {
             var request = util.getRequest('src/retorno_200.json');
             var data = JSON.stringify({
                 "name": "Igor Ferrani",
@@ -100,7 +100,74 @@ describe("Util", function () {
                 message: "",
                 success: true
             }
+            request.then(function (retorno) {
+                expect(retorno).toEqual(responseOk);
+                done();
+            });
+        });
 
+        it("Requisição GET com passagem de parâmetro queryString, com retorno OK - 200", function (done) {
+            var request = util.getRequest('src/retorno_200.json', { id : "igorferrani" });
+            var data = JSON.stringify({
+                "name": "Igor Ferrani",
+                "login": "igorferrani"
+            }, null, '    ');
+            var responseOk = {
+                data,
+                message: "",
+                success: true
+            }
+            request.then(function (retorno) {
+                expect(retorno).toEqual(responseOk);
+                done();
+            });
+        });
+
+        it("Requisição GET com passagem de parâmetro queryString objeto vazio, com retorno OK - 200", function (done) {
+            var request = util.getRequest('src/retorno_200.json', {});
+            var data = JSON.stringify({
+                "name": "Igor Ferrani",
+                "login": "igorferrani"
+            }, null, '    ');
+            var responseOk = {
+                data,
+                message: "",
+                success: true
+            }
+            request.then(function (retorno) {
+                expect(retorno).toEqual(responseOk);
+                done();
+            });
+        });
+
+        it("Requisição GET com passagem de parâmetro queryString string vazia, com retorno OK - 200", function (done) {
+            var request = util.getRequest('src/retorno_200.json', "");
+            var data = JSON.stringify({
+                "name": "Igor Ferrani",
+                "login": "igorferrani"
+            }, null, '    ');
+            var responseOk = {
+                data,
+                message: "",
+                success: true
+            }
+            request.then(function (retorno) {
+                expect(retorno).toEqual(responseOk);
+                done();
+            });
+        });
+
+        it("Requisição GET com passagem de parâmetro queryString null, com retorno OK - 200", function (done) {
+            var request = util.getRequest('src/retorno_200.json', "");
+            var data = JSON.stringify({
+                "name": "Igor Ferrani",
+                "login": "igorferrani"
+            }, null, '    ');
+            var responseOk = {
+                data,
+                message: "",
+                success: true
+            }
             request.then(function (retorno) {
                 expect(retorno).toEqual(responseOk);
                 done();

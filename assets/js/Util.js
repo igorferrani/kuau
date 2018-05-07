@@ -10,7 +10,7 @@ Util.prototype.toQueryString = function (params) {
     return t;
 }
 
-Util.prototype.response = function(success, message, data) {
+Util.prototype.response = function (success, message, data) {
     var response = {
         data: data || null,
         message: message || "",
@@ -23,10 +23,8 @@ Util.prototype.getRequest = function (url, params) {
     var _self = this;
     var promise = new Promise(function (resolve, reject) {
         url += _self.toQueryString(params);
-
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            debugger
             if (this.readyState == 4) {
                 if (this.status == 200)
                     resolve(_self.response(true, null, xhttp.responseText));
@@ -38,4 +36,10 @@ Util.prototype.getRequest = function (url, params) {
         xhttp.send();
     });
     return promise;
+}
+
+Util.prototype.errorLog = function (e) {
+    e = e || "";
+    alert("Error [" + e.toString() + "]");
+    console.log("Error: ", e.toString());
 }
