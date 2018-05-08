@@ -1,8 +1,8 @@
-describe("Util", function () {
+describe("UtilService", function () {
     var util;
 
     beforeEach(function () {
-        util = new Util();
+        util = new UtilService();
     });
 
     describe("Chamada para método toQueryString", function () {
@@ -90,7 +90,7 @@ describe("Util", function () {
 
     describe("Chamada para método getRequest", function () {
         it("Requisição GET sem passagem de queryString queryString, com retorno OK - 200", function (done) {
-            var request = util.getRequest('src/retorno_200.json');
+            var request = util.getRequest('assets/json/retorno_200.json');
             var data = JSON.stringify({
                 "name": "Igor Ferrani",
                 "login": "igorferrani"
@@ -107,7 +107,7 @@ describe("Util", function () {
         });
 
         it("Requisição GET com passagem de parâmetro queryString, com retorno OK - 200", function (done) {
-            var request = util.getRequest('src/retorno_200.json', { id : "igorferrani" });
+            var request = util.getRequest('assets/json/retorno_200.json', { id : "igorferrani" });
             var data = JSON.stringify({
                 "name": "Igor Ferrani",
                 "login": "igorferrani"
@@ -124,7 +124,7 @@ describe("Util", function () {
         });
 
         it("Requisição GET com passagem de parâmetro queryString objeto vazio, com retorno OK - 200", function (done) {
-            var request = util.getRequest('src/retorno_200.json', {});
+            var request = util.getRequest('assets/json/retorno_200.json', {});
             var data = JSON.stringify({
                 "name": "Igor Ferrani",
                 "login": "igorferrani"
@@ -141,7 +141,7 @@ describe("Util", function () {
         });
 
         it("Requisição GET com passagem de parâmetro queryString string vazia, com retorno OK - 200", function (done) {
-            var request = util.getRequest('src/retorno_200.json', "");
+            var request = util.getRequest('assets/json/retorno_200.json', "");
             var data = JSON.stringify({
                 "name": "Igor Ferrani",
                 "login": "igorferrani"
@@ -158,7 +158,7 @@ describe("Util", function () {
         });
 
         it("Requisição GET com passagem de parâmetro queryString null, com retorno OK - 200", function (done) {
-            var request = util.getRequest('src/retorno_200.json', "");
+            var request = util.getRequest('assets/json/retorno_200.json', "");
             var data = JSON.stringify({
                 "name": "Igor Ferrani",
                 "login": "igorferrani"

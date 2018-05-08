@@ -10,6 +10,7 @@
 
 <body>
     <div id="app">
+
         <header>
             <div class="container">
                 <a href="./">
@@ -21,6 +22,10 @@
 
         <main>
             <div class="container">
+
+                <div v-if="error.visible" v-bind:class="{ 'alert-warning' : error.type == 1, 'alert-danger' : error.type == 2 }" class="alert"
+                    role="alert">{{ error.message }}</div>
+
                 <div class="tab" v-if="tab == 'list-users'" id="list-users">
                     <h1>SearchHub</h1>
 
@@ -30,7 +35,8 @@
                         <div class="col-md-12">
                             <div class="form-group" style="position:relative">
                                 <label for="" class="control-label">Buscar</label>
-                                <input type="text" v-model="search" placeholder="Digite o nome de usuário no GitHub" @keyup="searchUser()" class="form-control">
+                                <input v-focus type="text" maxlength="50" v-model="search" placeholder="Digite o nome de usuário no GitHub" @keyup="searchUser()"
+                                    class="form-control">
                                 <span v-if="isSearching" class="loader glyphicon glyphicon-refresh"></span>
                             </div>
                         </div>
@@ -92,6 +98,18 @@
                                         Following
                                         <span class="badge">{{ user.following }}</span>
                                     </div>
+                                    <div v-if="user.public_repos" class="block-public-repos">
+                                        Public repos
+                                        <span class="badge">{{ user.public_repos }}</span>
+                                    </div>
+                                    <div v-if="user.company" class="block-company">
+                                        Company
+                                        <span class="badge">{{ user.company }}</span>
+                                    </div>
+                                    <div v-if="user.blog" class="block-blog">
+                                        Blog
+                                        <span class="badge"><a v-bind:href="user.blog" target="_blank">{{ user.blog }}</a></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,10 +126,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
 
-    <!-- components-->
-    <script src="components/ComponentUserListItem.js"></script>
+    <!-- Components-->
+    <script src="assets/js/components/ComponentUserListItem.js"></script>
 
-    <script src="assets/js/Util.js"></script>
+    <!-- Service -->
+    <script src="service/UserService.js"></script>
+    <script src="service/UtilService.js"></script>
+
     <script src="assets/js/app.js"></script>
 </body>
 
