@@ -31,9 +31,10 @@ UserService.prototype.fetch = function (login) {
 UserService.prototype.fetchAll = function (search) {
     search = search || ''
     var _self = this;
+    var filter = "+type:user+in:fullname";
     var promise = new Promise(function (resolve, reject) {
         if (search !== '') {
-            var request = _self.utilService.getRequest("https://api.github.com/search/users", { q: search + "+type:user" });
+            var request = _self.utilService.getRequest("https://api.github.com/search/users", { q: search + filter });
             request.then(function (retorno) {
                 if (retorno.success) {
                     retorno.data = JSON.parse(retorno.data)
