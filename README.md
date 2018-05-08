@@ -12,4 +12,4 @@ Para rodar o projeto, execute o arquivo `index.html` em um servidor web e começ
 
 Para o desenvolvimento do projeto foi utilizado tecnologias como Vue.js, HTML5, CSS3, JavaScript ES6+ e Testes unitário com Jasmine. Consumo de API Rest do GitHub (https://developer.github.com/v3/search/) via Ajax.
 
->Link da aplicação rodando: 
+>Link da aplicação rodando: https://igorferrani.github.io/kuau/
