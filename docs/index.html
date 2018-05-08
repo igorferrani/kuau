@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+    <title>SearchHub - Kuau</title>
 </head>
 
 <body>
@@ -108,7 +110,9 @@
                                     </div>
                                     <div v-if="user.blog" class="block-blog">
                                         Blog
-                                        <span class="badge"><a v-bind:href="user.blog" target="_blank">{{ user.blog }}</a></span>
+                                        <span class="badge">
+                                            <a v-bind:href="user.blog" target="_blank">{{ user.blog }}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
